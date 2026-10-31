@@ -1,20 +1,189 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MakeBead</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MakeBead — Pixel Art Studio</title>
 <style>
-:root{--p:#f4d;--d:#2b2320;--l:#e8ddd4;--m:#79675d}*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui;background:#faf6f2;color:var(--d)}header{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid var(--l);padding:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.b{font-weight:900}nav{display:flex;gap:12px;font:700 11px monospace}nav a{color:var(--m);text-decoration:none}.sp{flex:1}.ls{display:flex;gap:5px;align-items:center}.ls label{font:900 9px monospace;color:var(--m)}select,.hbtn{border:1px solid var(--l);border-radius:6px;padding:6px;font:800 10px monospace;background:#fff}.hbtn{background:var(--p);color:#fff;border-color:var(--p);cursor:pointer}main{max-width:1000px;margin:auto;padding:16px}h1{font-size:20px}h2{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--m);margin:1em 0 .3em}.g{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}@media(max-width:800px){.g{grid-template-columns:1fr}nav{display:none}}.c{background:#fff;border:1px solid var(--l);border-radius:10px;padding:12px}#drop{border:2px dashed var(--l);border-radius:10px;padding:26px;text-align:center;cursor:pointer;color:var(--m)}#drop.h{border-color:var(--p);background:#fff6fa}.tabs{display:flex;gap:6px;margin-bottom:8px}.t{flex:1;padding:7px;border:1px solid var(--l);background:#fff;border-radius:6px;font:800 10px monospace;cursor:pointer;color:var(--m)}.t.on{background:var(--d);color:#fff;border-color:var(--d)}.cv{background:#fff;border:1px solid var(--l);border-radius:8px;padding:8px;display:flex;flex-direction:column;gap:8px;align-items:center;min-height:180px}canvas{max-width:100%;image-rendering:pixelated}.cap{font:600 11px monospace;color:var(--m);text-align:center}.row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}button.a{border:1px solid var(--l);background:#fff;padding:8px;border-radius:6px;font:800 10px monospace;cursor:pointer}button.a.p{background:var(--p);color:#fff;border-color:var(--p)}.presets{display:grid;grid-template-columns:1fr 1fr;gap:6px}.presets button{padding:6px;border:1px solid var(--l);background:#fff;border-radius:6px;font:800 9px monospace;cursor:pointer}label.r{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:6px 0;font-size:12px}label.r input[type=range]{flex:1;max-width:120px;accent-color:var(--p)}.hide{display:none}.mb{position:fixed;inset:0;background:rgba(20,10,15,.55);display:none;z-index:50;padding:16px;overflow:auto}.mb.on{display:flex;justify-content:center;align-items:flex-start}.mod{background:#fff;max-width:800px;width:100%;border-radius:12px;overflow:hidden}.mod header{position:sticky;top:0;background:#fff}.mod h2{margin:0;font-size:13px;color:var(--d);text-transform:none}.mod .x{border:none;background:none;font-size:22px;cursor:pointer;color:var(--m)}.mbody{padding:14px}.mbody p{color:var(--m);font-size:13px}.htools{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.htools input{flex:1;min-width:140px;padding:7px;border:1px solid var(--l);border-radius:6px}.htools button{border:1px solid var(--l);background:#fff;padding:6px 8px;border-radius:6px;font:800 10px monospace;cursor:pointer}#hc{font:800 10px monospace;color:var(--m);align-self:center;margin-left:auto}details{border:1px solid var(--l);border-radius:8px;margin-bottom:6px;overflow:hidden}summary{padding:9px;cursor:pointer;font:800 12px monospace;background:#fdfaf7}details div{padding:0 12px 10px;color:var(--m);font-size:13px}#he{color:var(--m);text-align:center;padding:14px;display:none}footer{text-align:center;color:var(--m);font-size:11px;padding:16px}#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:var(--d);color:#fff;padding:10px 16px;border-radius:8px;font:800 11px monospace;opacity:0;transition:.25s;pointer-events:none;z-index:100}#toast.on{opacity:1;transform:translate(-50%,0)}#fbText{width:100%;padding:8px;border:1px solid var(--l);border-radius:6px;font:14px system-ui}
-</style></head><body>
-<header><span class="b">MakeBead</span><nav><a href="#" data-i="GALLERY"></a><a href="#" data-i="CONVERTERS"></a><a href="#" data-i="DESIGNERS"></a><a href="#help" id="olink"></a><a href="#" id="fbLink" data-i="FEEDBACK"></a></nav><span class="sp"></span><div class="ls"><label for="lang" data-i="LANGUAGE"></label><select id="lang"><option value="en">English</option><option value="de">Deutsch</option></select></div><button class="hbtn" id="openHelp" data-i="HELP"></button></header>
-<main><p style="text-align:center;font:800 11px monospace;letter-spacing:2px;color:var(--m)" data-i="STUDIO"></p><h1 data-i="TITLE"></h1><p style="color:var(--m);max-width:70ch" data-i="LEAD"></p>
-<div class="g"><section class="c"><div class="tabs"><button class="t on" id="tConv" data-i="PC"></button><button class="t" id="tComp" data-i="BA"></button></div><div id="drop" role="button"><b data-i="DROP"></b><span data-i="FORMATS"></span></div><input type="file" id="fi" accept="image/jpeg,image/png,image/webp" hidden><div class="cap" id="st" style="margin-top:8px" data-i="PROCESSED"></div><div id="pv" class="hide"><div class="cv"><canvas id="pc"></canvas></div><div class="cap" id="cap"></div><div class="row"><button class="a" id="chg" data-i="CHANGE"></button><button class="a" id="rst" data-i="RESTORE"></button><button class="a" id="rset" data-i="RESET"></button></div><div class="row"><button class="a p" id="dlp" data-i="DLP"></button><button class="a" id="dlo" data-i="DLO"></button></div></div><div id="cv" class="hide"><div class="cv"><canvas id="co"></canvas><canvas id="cp"></canvas></div></div></section>
-<aside class="c"><h2 data-i="STYLE"></h2><div class="presets"><button data-ps="fine" data-i="FINE"></button><button data-ps="classic" data-i="CLASSIC"></button><button data-ps="chunky" data-i="CHUNKY"></button><button data-ps="sprite" data-i="SPRITE"></button></div><h2 data-i="PSIZE"></h2><label class="r"><span data-i="WIDTH"></span><input type="range" id="ps" min="16" max="256" value="64"><output id="psO">64</output></label><label class="r"><span data-i="SCALE"></span><select id="sm"><option value="sharp" data-i="SHP"></option><option value="smooth" data-i="SMH"></option></select></label><h2 data-i="CLARITY"></h2><label class="r"><span data-i="SHARP"></span><input type="range" id="sh" min="0" max="100" value="25"><output id="shO">25</output></label><label class="r"><span data-i="BLUR"></span><input type="range" id="bl" min="0" max="100" value="0"><output id="blO">0</output></label><h2 data-i="COLOR"></h2><label class="r"><span data-i="CLIM"></span><input type="range" id="cl" min="2" max="64" value="24"><output id="clO">24</output></label><label class="r"><span data-i="CON"></span><input type="range" id="co" min="50" max="150" value="100"><output id="coO">100</output></label><label class="r"><span data-i="SAT"></span><input type="range" id="sa" min="0" max="200" value="100"><output id="saO">100</output></label><label class="r"><span data-i="OUT"></span><input type="checkbox" id="ol"></label><h2 data-i="EXP"></h2><label class="r"><span data-i="SCALE"></span><input type="range" id="es" min="1" max="16" value="6"><output id="esO">6×</output></label><label class="r"><span data-i="GRID"></span><input type="checkbox" id="gr"></label></aside></div></main>
+:root{--p:#f4d;--d:#2b2320;--l:#e8ddd4;--m:#79675d}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui;background:#faf6f2;color:var(--d)}
+header{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid var(--l);padding:10px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.b{font-weight:900}nav{display:flex;gap:12px;font:700 11px monospace}
+nav a{color:var(--m);text-decoration:none}
+.sp{flex:1}.ls{display:flex;gap:5px;align-items:center}
+.ls label{font:900 9px monospace;color:var(--m)}
+select,.hbtn{border:1px solid var(--l);border-radius:6px;padding:6px;font:800 10px monospace;background:#fff}
+.hbtn{background:var(--p);color:#fff;border-color:var(--p);cursor:pointer}
+main{max-width:1000px;margin:auto;padding:16px}
+h1{font-size:20px}h2{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--m);margin:1em 0 .3em}
+.g{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
+@media(max-width:800px){.g{grid-template-columns:1fr}nav{display:none}}
+.c{background:#fff;border:1px solid var(--l);border-radius:10px;padding:12px}
+#drop{border:2px dashed var(--l);border-radius:10px;padding:26px;text-align:center;cursor:pointer;color:var(--m)}
+#drop.h{border-color:var(--p);background:#fff6fa}
+.tabs{display:flex;gap:6px;margin-bottom:8px}
+.t{flex:1;padding:7px;border:1px solid var(--l);background:#fff;border-radius:6px;font:800 10px monospace;cursor:pointer;color:var(--m)}
+.t.on{background:var(--d);color:#fff;border-color:var(--d)}
+.cv{background:#fff;border:1px solid var(--l);border-radius:8px;padding:8px;display:flex;flex-direction:column;gap:8px;align-items:center;min-height:180px}
+canvas{max-width:100%;image-rendering:pixelated}
+.cap{font:600 11px monospace;color:var(--m);text-align:center}
+.row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+button.a{border:1px solid var(--l);background:#fff;padding:8px;border-radius:6px;font:800 10px monospace;cursor:pointer}
+button.a.p{background:var(--p);color:#fff;border-color:var(--p)}
+.presets{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.presets button{padding:6px;border:1px solid var(--l);background:#fff;border-radius:6px;font:800 9px monospace;cursor:pointer}
+label.r{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:6px 0;font-size:12px}
+label.r input[type=range]{flex:1;max-width:120px;accent-color:var(--p)}
+.hide{display:none}
+.mb{position:fixed;inset:0;background:rgba(20,10,15,.55);display:none;z-index:50;padding:16px;overflow:auto}
+.mb.on{display:flex;justify-content:center;align-items:flex-start}
+.mod{background:#fff;max-width:800px;width:100%;border-radius:12px;overflow:hidden}
+.mod header{position:sticky;top:0;background:#fff}
+.mod h2{margin:0;font-size:13px;color:var(--d);text-transform:none}
+.mod .x{border:none;background:none;font-size:22px;cursor:pointer;color:var(--m)}
+.mbody{padding:14px}.mbody p{color:var(--m);font-size:13px}
+.htools{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.htools input{flex:1;min-width:140px;padding:7px;border:1px solid var(--l);border-radius:6px}
+.htools button{border:1px solid var(--l);background:#fff;padding:6px 8px;border-radius:6px;font:800 10px monospace;cursor:pointer}
+#hc{font:800 10px monospace;color:var(--m);align-self:center;margin-left:auto}
+details{border:1px solid var(--l);border-radius:8px;margin-bottom:6px;overflow:hidden}
+summary{padding:9px;cursor:pointer;font:800 12px monospace;background:#fdfaf7}
+details div{padding:0 12px 10px;color:var(--m);font-size:13px}
+#he{color:var(--m);text-align:center;padding:14px;display:none}
+footer{text-align:center;color:var(--m);font-size:11px;padding:16px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:var(--d);color:#fff;padding:10px 16px;border-radius:8px;font:800 11px monospace;opacity:0;transition:.25s;pointer-events:none;z-index:100}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#fbText{width:100%;padding:8px;border:1px solid var(--l);border-radius:6px;font:14px system-ui}
+</style>
+</head>
+<body>
+<header>
+  <span class="b">MakeBead</span>
+  <nav>
+    <a href="#" data-i="GALLERY"></a><a href="#" data-i="CONVERTERS"></a>
+    <a href="#" data-i="DESIGNERS"></a><a href="#help" id="olink"></a>
+    <a href="#" id="fbLink" data-i="FEEDBACK"></a>
+  </nav>
+  <span class="sp"></span>
+  <div class="ls"><label for="lang" data-i="LANGUAGE"></label>
+    <select id="lang"><option value="en">English</option><option value="de">Deutsch</option></select>
+  </div>
+  <button class="hbtn" id="openHelp" data-i="HELP"></button>
+</header>
+
+<main>
+  <p style="text-align:center;font:800 11px monospace;letter-spacing:2px;color:var(--m)" data-i="STUDIO"></p>
+  <h1 data-i="TITLE"></h1>
+  <p style="color:var(--m);max-width:70ch" data-i="LEAD"></p>
+  <div class="g">
+    <section class="c">
+      <div class="tabs">
+        <button class="t on" id="tConv" data-i="PC"></button>
+        <button class="t" id="tComp" data-i="BA"></button>
+      </div>
+      <div id="drop" role="button"><b data-i="DROP"></b><span data-i="FORMATS"></span></div>
+      <input type="file" id="fi" accept="image/jpeg,image/png,image/webp" hidden>
+      <div class="cap" id="st" style="margin-top:8px" data-i="PROCESSED"></div>
+      <div id="pv" class="hide">
+        <div class="cv"><canvas id="pc"></canvas></div>
+        <div class="cap" id="cap"></div>
+        <div class="row">
+          <button class="a" id="chg" data-i="CHANGE"></button>
+          <button class="a" id="rst" data-i="RESTORE"></button>
+          <button class="a" id="rset" data-i="RESET"></button>
+        </div>
+        <div class="row">
+          <button class="a p" id="dlp" data-i="DLP"></button>
+          <button class="a" id="dlo" data-i="DLO"></button>
+        </div>
+      </div>
+      <div id="cv" class="hide">
+        <div class="cv"><canvas id="co"></canvas><canvas id="cp"></canvas></div>
+      </div>
+    </section>
+    <aside class="c">
+      <h2 data-i="STYLE"></h2>
+      <div class="presets">
+        <button data-ps="fine" data-i="FINE"></button><button data-ps="classic" data-i="CLASSIC"></button>
+        <button data-ps="chunky" data-i="CHUNKY"></button><button data-ps="sprite" data-i="SPRITE"></button>
+      </div>
+      <h2 data-i="PSIZE"></h2>
+      <label class="r"><span data-i="WIDTH"></span><input type="range" id="ps" min="16" max="256" value="64"><output id="psO">64</output></label>
+      <label class="r"><span data-i="SCALE"></span>
+        <select id="sm"><option value="sharp" data-i="SHP"></option><option value="smooth" data-i="SMH"></option></select>
+      </label>
+      <h2 data-i="CLARITY"></h2>
+      <label class="r"><span data-i="SHARP"></span><input type="range" id="sh" min="0" max="100" value="25"><output id="shO">25</output></label>
+      <label class="r"><span data-i="BLUR"></span><input type="range" id="bl" min="0" max="100" value="0"><output id="blO">0</output></label>
+      <h2 data-i="COLOR"></h2>
+      <label class="r"><span data-i="CLIM"></span><input type="range" id="cl" min="2" max="64" value="24"><output id="clO">24</output></label>
+      <label class="r"><span data-i="CON"></span><input type="range" id="co" min="50" max="150" value="100"><output id="coO">100</output></label>
+      <label class="r"><span data-i="SAT"></span><input type="range" id="sa" min="0" max="200" value="100"><output id="saO">100</output></label>
+      <label class="r"><span data-i="OUT"></span><input type="checkbox" id="ol"></label>
+      <h2 data-i="EXP"></h2>
+      <label class="r"><span data-i="SCALE"></span><input type="range" id="es" min="1" max="16" value="6"><output id="esO">6×</output></label>
+      <label class="r"><span data-i="GRID"></span><input type="checkbox" id="gr"></label>
+    </aside>
+  </div>
+</main>
 <footer data-i="FOOTER"></footer>
-<div class="mb" id="mb" role="dialog"><div class="mod"><header><span style="font:800 10px monospace;color:var(--p);padding:0 6px" data-i="SUP"></span><h2 style="display:inline" data-i="HC"></h2><span class="sp"></span><button class="x" id="xHelp">×</button></header><div class="mbody"><p data-i="HINTRO"></p><div class="htools"><input type="search" id="hs" data-i="HSPH"><button id="ea" data-i="EXA"></button><button id="ca" data-i="COA"></button><span id="hc"></span></div><div id="helpList"></div><p id="he"></p></div></div></div>
-<div class="mb" id="fbmb" role="dialog"><div class="mod" style="max-width:520px"><header><h2 style="display:inline" data-i="FBTITLE"></h2><span class="sp"></span><button class="x" id="xfb">×</button></header><div class="mbody"><p data-i="FBINTRO"></p><form id="fbForm" action="https://formspree.io/f/xoeekewy" method="POST"><input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"><input type="text" name="name" data-i="FBNAME" placeholder="" required style="width:100%;padding:8px;border:1px solid var(--l);border-radius:6px;margin-bottom:6px"><input type="email" name="email" data-i="FBEMAIL" placeholder="" required style="width:100%;padding:8px;border:1px solid var(--l);border-radius:6px;margin-bottom:6px"><textarea id="fbText" name="message" rows="4" data-i="FBPLH" placeholder="" required></textarea><div class="row"><button class="a p" type="submit" id="fbSend" data-i="FBSEND"></button></div><p id="fbMsg" style="font-size:12px;color:var(--m);margin-top:8px;font-weight:bold"></p></form></div></div></div>
+
+<div class="mb" id="mb" role="dialog">
+  <div class="mod">
+    <header>
+      <span style="font:800 10px monospace;color:var(--p);padding:0 6px" data-i="SUP"></span>
+      <h2 style="display:inline" data-i="HC"></h2><span class="sp"></span>
+      <button class="x" id="xHelp">×</button>
+    </header>
+    <div class="mbody">
+      <p data-i="HINTRO"></p>
+      <div class="htools">
+        <input type="search" id="hs" data-i="HSPH">
+        <button id="ea" data-i="EXA"></button><button id="ca" data-i="COA"></button>
+        <span id="hc"></span>
+      </div>
+      <div id="helpList"></div>
+      <p id="he"></p>
+    </div>
+  </div>
+</div>
+
+<div class="mb" id="fbmb" role="dialog">
+  <div class="mod" style="max-width:520px">
+    <header>
+      <h2 style="display:inline" data-i="FBTITLE"></h2>
+      <span class="sp"></span>
+      <button class="x" id="xfb">×</button>
+    </header>
+    <div class="mbody">
+      <p data-i="FBINTRO"></p>
+      <!-- Formspree Basic HTML - Sendet normal ab, kein JS-Fehler möglich -->
+      <form id="fbForm" action="https://formspree.io/f/xoeekewy" method="POST">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <input type="text" name="name" data-i="FBNAME" placeholder="" required style="width:100%;padding:8px;border:1px solid var(--l);border-radius:6px;margin-bottom:6px">
+        <input type="email" name="email" data-i="FBEMAIL" placeholder="" required style="width:100%;padding:8px;border:1px solid var(--l);border-radius:6px;margin-bottom:6px">
+        <textarea id="fbText" name="message" rows="4" data-i="FBPLH" placeholder="" required></textarea>
+        <div class="row">
+          <button class="a p" type="submit" id="fbSend" data-i="FBSEND"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
+
 <script>
-const T={en:{GALLERY:'GALLERY',CONVERTERS:'CONVERTERS⌄',DESIGNERS:'DESIGNERS⌄',GUIDES:'GUIDES',FEEDBACK:'FEEDBACK',LANGUAGE:'LANGUAGE',HELP:'HELP CENTER ?',STUDIO:'~ PIXEL ART STUDIO ~',TITLE:'IMAGE TO PIXEL ART CONVERTER',LEAD:'Turn any photo into pixel art. Preview live and export a PNG. Your image stays on your device.',PC:'PIXEL CONVERTER',BA:'BEFORE / AFTER',DROP:'DROP IMAGE OR CLICK TO UPLOAD',FORMATS:'JPEG, PNG, or WebP',PROCESSED:'♙ Processed in your browser — never uploaded',CHANGE:'CHANGE IMAGE',RESTORE:'RESTORE ORIGINAL',RESET:'RESET SETTINGS',DLP:'DOWNLOAD PIXEL ART PNG ↓',DLO:'DOWNLOAD ORIGINAL PNG ↓',STYLE:'PIXEL STYLE',FINE:'FINE PIXELS',CLASSIC:'CLASSIC 8-BIT',CHUNKY:'CHUNKY 16-BIT',SPRITE:'TINY SPRITE',PSIZE:'PIXEL SIZE',WIDTH:'Width',SCALE:'Output scaling',SHP:'Pixelated / sharp edges',SMH:'Smooth / soft edges',CLARITY:'IMAGE CLARITY',SHARP:'Sharpness',BLUR:'Blur / softness',COLOR:'COLOR & DETAIL',CLIM:'Color limit',CON:'Contrast',SAT:'Saturation',OUT:'Add dark pixel outline',EXP:'EXPORT SIZE',GRID:'Show pixel grid in preview',FOOTER:'MakeBead Pixel Art Studio · Your image never leaves your device.',SUP:'~ MAKEBEAD SUPPORT ~',HC:'HELP CENTER',HINTRO:'Everything you need. Search guides or open a topic.',EXA:'EXPAND ALL',COA:'COLLAPSE ALL',HSPH:'Search help topics...',EMPTY:'No help topics match your search.',NIMG:'Upload an image first.',BAD:'Please select a JPEG, PNG or WebP image.',FAIL:'Could not open this image.',CAP:'{w} × {h} px · {c} colors · {s}× export',ORIG:'Original',FBTITLE:'SEND FEEDBACK',FBINTRO:'Describe a bug, idea or question.',FBPLH:'Your feedback…',FBNAME:'Your name',FBEMAIL:'Your email',FBSEND:'SEND FEEDBACK'},de:{GALLERY:'GALERIE',CONVERTERS:'KONVERTER⌄',DESIGNERS:'DESIGNER⌄',GUIDES:'ANLEITUNGEN',FEEDBACK:'FEEDBACK',LANGUAGE:'SPRACHE',HELP:'HILFECENTER ?',STUDIO:'~ PIXEL-ART-STUDIO ~',TITLE:'BILD- ZU PIXEL-ART-KONVERTER',LEAD:'Verwandle jedes Foto in Pixel-Art. Vorschau live, Export als PNG. Dein Bild bleibt auf deinem Gerät.',PC:'PIXEL-KONVERTER',BA:'VORHER / NACHHER',DROP:'BILD ABLEGEN ODER ZUM HOCHLADEN KLICKEN',FORMATS:'JPEG, PNG oder WebP',PROCESSED:'♙ Verarbeitung im Browser – kein Upload',CHANGE:'BILD ÄNDERN',RESTORE:'ORIGINAL WIEDERHERSTELLEN',RESET:'EINSTELLUNGEN ZURÜCKSETZEN',DLP:'PIXEL-ART-PNG HERUNTERLADEN ↓',DLO:'ORIGINAL-PNG HERUNTERLADEN ↓',STYLE:'PIXEL-STIL',FINE:'FEINE PIXEL',CLASSIC:'KLASSISCH 8-BIT',CHUNKY:'GROBE 16-BIT',SPRITE:'KLEINES SPRITE',PSIZE:'PIXELGRÖSSE',WIDTH:'Breite',SCALE:'Skalierung',SHP:'Pixelig / scharfe Kanten',SMH:'Glatt / weiche Kanten',CLARITY:'BILDKLARHEIT',SHARP:'Schärfe',BLUR:'Unschärfe / Weichheit',COLOR:'FARBE & DETAILS',CLIM:'Farbanzahl',CON:'Kontrast',SAT:'Farbsättigung',OUT:'Dunkle Pixelkontur hinzufügen',EXP:'EXPORTGRÖSSE',GRID:'Pixelraster in der Vorschau anzeigen',FOOTER:'MakeBead Pixel-Art-Studio · Dein Bild verlässt nie dein Gerät.',SUP:'~ MAKEBEAD-SUPPORT ~',HC:'HILFECENTER',HINTRO:'Alles, was du brauchst. Suche oder öffne ein Thema.',EXA:'ALLE AUFKLAPPEN',COA:'ALLE ZUKLAPPEN',HSPH:'Hilfethemen durchsuchen...',EMPTY:'Keine passenden Hilfethemen gefunden.',NIMG:'Bitte lade zuerst ein Bild hoch.',BAD:'Bitte wähle ein JPEG-, PNG- oder WebP-Bild aus.',FAIL:'Dieses Bild konnte nicht geöffnet werden.',CAP:'{w} × {h} px · {c} Farben · Export {s}×',ORIG:'Original',FBTITLE:'FEEDBACK SENDEN',FBINTRO:'Beschreibe einen Fehler, eine Idee oder eine Frage.',FBPLH:'Dein Feedback…',FBNAME:'Dein Name',FBEMAIL:'Deine E-Mail',FBSEND:'FEEDBACK SENDEN'}};
+const T={
+en:{GALLERY:'GALLERY',CONVERTERS:'CONVERTERS⌄',DESIGNERS:'DESIGNERS⌄',GUIDES:'GUIDES',FEEDBACK:'FEEDBACK',LANGUAGE:'LANGUAGE',HELP:'HELP CENTER ?',STUDIO:'~ PIXEL ART STUDIO ~',TITLE:'IMAGE TO PIXEL ART CONVERTER',LEAD:'Turn any photo into pixel art. Preview live and export a PNG. Your image stays on your device.',PC:'PIXEL CONVERTER',BA:'BEFORE / AFTER',DROP:'DROP IMAGE OR CLICK TO UPLOAD',FORMATS:'JPEG, PNG, or WebP',PROCESSED:'♙ Processed in your browser — never uploaded',CHANGE:'CHANGE IMAGE',RESTORE:'RESTORE ORIGINAL',RESET:'RESET SETTINGS',DLP:'DOWNLOAD PIXEL ART PNG ↓',DLO:'DOWNLOAD ORIGINAL PNG ↓',STYLE:'PIXEL STYLE',FINE:'FINE PIXELS',CLASSIC:'CLASSIC 8-BIT',CHUNKY:'CHUNKY 16-BIT',SPRITE:'TINY SPRITE',PSIZE:'PIXEL SIZE',WIDTH:'Width',SCALE:'Output scaling',SHP:'Pixelated / sharp edges',SMH:'Smooth / soft edges',CLARITY:'IMAGE CLARITY',SHARP:'Sharpness',BLUR:'Blur / softness',COLOR:'COLOR & DETAIL',CLIM:'Color limit',CON:'Contrast',SAT:'Saturation',OUT:'Add dark pixel outline',EXP:'EXPORT SIZE',GRID:'Show pixel grid in preview',FOOTER:'MakeBead Pixel Art Studio · Your image never leaves your device.',SUP:'~ MAKEBEAD SUPPORT ~',HC:'HELP CENTER',HINTRO:'Everything you need. Search guides or open a topic.',EXA:'EXPAND ALL',COA:'COLLAPSE ALL',HSPH:'Search help topics...',EMPTY:'No help topics match your search.',NIMG:'Upload an image first.',BAD:'Please select a JPEG, PNG or WebP image.',FAIL:'Could not open this image.',CAP:'{w} × {h} px · {c} colors · {s}× export',ORIG:'Original',FBTITLE:'SEND FEEDBACK',FBINTRO:'Describe a bug, idea or question.',FBPLH:'Your feedback…',FBNAME:'Your name',FBEMAIL:'Your email',FBSEND:'SEND FEEDBACK'},
+de:{GALLERY:'GALERIE',CONVERTERS:'KONVERTER⌄',DESIGNERS:'DESIGNER⌄',GUIDES:'ANLEITUNGEN',FEEDBACK:'FEEDBACK',LANGUAGE:'SPRACHE',HELP:'HILFECENTER ?',STUDIO:'~ PIXEL-ART-STUDIO ~',TITLE:'BILD- ZU PIXEL-ART-KONVERTER',LEAD:'Verwandle jedes Foto in Pixel-Art. Vorschau live, Export als PNG. Dein Bild bleibt auf deinem Gerät.',PC:'PIXEL-KONVERTER',BA:'VORHER / NACHHER',DROP:'BILD ABLEGEN ODER ZUM HOCHLADEN KLICKEN',FORMATS:'JPEG, PNG oder WebP',PROCESSED:'♙ Verarbeitung im Browser – kein Upload',CHANGE:'BILD ÄNDERN',RESTORE:'ORIGINAL WIEDERHERSTELLEN',RESET:'EINSTELLUNGEN ZURÜCKSETZEN',DLP:'PIXEL-ART-PNG HERUNTERLADEN ↓',DLO:'ORIGINAL-PNG HERUNTERLADEN ↓',STYLE:'PIXEL-STIL',FINE:'FEINE PIXEL',CLASSIC:'KLASSISCH 8-BIT',CHUNKY:'GROBE 16-BIT',SPRITE:'KLEINES SPRITE',PSIZE:'PIXELGRÖSSE',WIDTH:'Breite',SCALE:'Skalierung',SHP:'Pixelig / scharfe Kanten',SMH:'Glatt / weiche Kanten',CLARITY:'BILDKLARHEIT',SHARP:'Schärfe',BLUR:'Unschärfe / Weichheit',COLOR:'FARBE & DETAILS',CLIM:'Farbanzahl',CON:'Kontrast',SAT:'Farbsättigung',OUT:'Dunkle Pixelkontur hinzufügen',EXP:'EXPORTGRÖSSE',GRID:'Pixelraster in der Vorschau anzeigen',FOOTER:'MakeBead Pixel-Art-Studio · Dein Bild verlässt nie dein Gerät.',SUP:'~ MAKEBEAD-SUPPORT ~',HC:'HILFECENTER',HINTRO:'Alles, was du brauchst. Suche oder öffne ein Thema.',EXA:'ALLE AUFKLAPPEN',COA:'ALLE ZUKLAPPEN',HSPH:'Hilfethemen durchsuchen...',EMPTY:'Keine passenden Hilfethemen gefunden.',NIMG:'Bitte lade zuerst ein Bild hoch.',BAD:'Bitte wähle ein JPEG-, PNG- oder WebP-Bild aus.',FAIL:'Dieses Bild konnte nicht geöffnet werden.',CAP:'{w} × {h} px · {c} Farben · Export {s}×',ORIG:'Original',FBTITLE:'FEEDBACK SENDEN',FBINTRO:'Beschreibe einen Fehler, eine Idee oder eine Frage.',FBPLH:'Dein Feedback…',FBNAME:'Dein Name',FBEMAIL:'Deine E-Mail',FBSEND:'FEEDBACK SENDEN'}};
+
 const H={en:[['01 · GETTING STARTED','<p>Upload, pick a style, adjust, compare, download.</p>'],['02 · UPLOADING OR CHANGING','<p>Click or drag. CHANGE IMAGE replaces it.</p>'],['03 · FORMATS','<p>Input: PNG/JPEG/WebP. Output: PNG.</p>'],['04 · PRIVACY','<p>All in browser. Nothing uploaded.</p>'],['05 · PIXEL SIZE','<p>Lower = bigger blocks. Try 48–96 px.</p>'],['06 · PRESETS','<p>Fine, Classic, Chunky, Sprite.</p>'],['07 · SCALING','<p>Sharp = nearest neighbor. Smooth = blended.</p>'],['08 · SHARPNESS','<p>Boosts edges. High values add noise.</p>'],['09 · BLUR','<p>Softens before downscaling.</p>'],['10 · COLOR LIMIT','<p>Caps colors. Lower = poster look.</p>'],['11 · CONTRAST & SATURATION','<p>Contrast = dark/light. Saturation = color intensity.</p>'],['12 · OUTLINE','<p>Dark border around bright areas.</p>'],['13 · EXPORT SIZE','<p>Pixel scale multiplies output size.</p>'],['14 · PIXEL GRID','<p>Guide lines in preview and PNG (≥3×).</p>'],['15 · BEFORE / AFTER','<p>Side-by-side comparison.</p>'],['16 · RESTORE / RESET','<p>RESTORE = original. RESET = defaults.</p>'],['17 · DOWNLOAD & TROUBLESHOOTING','<p>If a download fails, check browser permissions.</p>']],de:[['01 · ERSTE SCHRITTE','<p>Hochladen, Stil wählen, anpassen, vergleichen, herunterladen.</p>'],['02 · HOCHLADEN ODER ÄNDERN','<p>Klicken oder ziehen. BILD ÄNDERN ersetzt.</p>'],['03 · FORMATE','<p>Eingabe: PNG/JPEG/WebP. Ausgabe: PNG.</p>'],['04 · DATENSCHUTZ','<p>Alles im Browser. Nichts wird hochgeladen.</p>'],['05 · PIXELGRÖSSE','<p>Kleiner = größere Blöcke. 48–96 px für Klassiker.</p>'],['06 · PRESETS','<p>Fein, Klassisch, Grob, Sprite.</p>'],['07 · SKALIERUNG','<p>Scharf = Nearest-Neighbor. Weich = gemischt.</p>'],['08 · SCHÄRFE','<p>Verstärkt Kanten. Hohe Werte = Rauschen.</p>'],['09 · UNSCHÄRFE','<p>Vor dem Verkleinern weichzeichnen.</p>'],['10 · FARBANZAHL','<p>Begrenzt Farben. Weniger = plakativ.</p>'],['11 · KONTRAST & SÄTTIGUNG','<p>Kontrast = hell/dunkel. Sättigung = Intensität.</p>'],['12 · KONTUR','<p>Dunkle Umrandung heller Bereiche.</p>'],['13 · EXPORTGRÖSSE','<p>Pixel-Skalierung multipliziert Größe.</p>'],['14 · PIXELRASTER','<p>Hilfslinien in Vorschau und PNG (ab 3×).</p>'],['15 · VORHER/NACHHER','<p>Direkter Vergleich nebeneinander.</p>'],['16 · WIEDERHERSTELLEN/ZURÜCKSETZEN','<p>ORIGINAL = Originalbild. RESET = Standardwerte.</p>'],['17 · DOWNLOAD & HILFE','<p>Bei Download-Problemen Berechtigungen prüfen.</p>']]};
+
 const $=s=>document.querySelector(s);let lang=localStorage.getItem('mb-lang')||'en';let img=null;const cvs=$('#pc'),ctx=cvs.getContext('2d');const DEF={ps:64,sh:25,bl:0,cl:24,co:100,sa:100,es:6};
+
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2400);}
+
 function setLang(l){lang=l;document.documentElement.lang=l;document.title=l==='de'?'MakeBead — Pixel-Art-Studio':'MakeBead — Pixel Art Studio';document.querySelectorAll('[data-i]').forEach(el=>{const k=el.dataset.i,v=T[l][k];if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.placeholder=v;}else{el.textContent=v;}});$('#hc').textContent=(l==='de'?'17 HILFETHEMEN':'17 HELP TOPICS');$('#he').textContent=T[l].EMPTY;renderHelp();updateCap();localStorage.setItem('mb-lang',l);$('#lang').value=l;}
 function renderHelp(f=''){f=f.toLowerCase();const list=$('#helpList');list.innerHTML='';let n=0;H[lang].forEach(([t,b])=>{if(f&&!(t+' '+b).toLowerCase().includes(f))return;n++;const d=document.createElement('details');d.innerHTML=`<summary>${t}</summary><div>${b}</div>`;list.appendChild(d);});$('#he').style.display=n?'none':'block';}
 function updateCap(){if(!img){$('#cap').textContent='';return;}const w=+$('#ps').value,s=+$('#es').value,c=+$('#cl').value;$('#cap').textContent=T[lang].CAP.replace('{w}',w).replace('{h}',Math.round(w*img.height/img.width)).replace('{c}',c).replace('{s}',s);}
@@ -35,29 +204,9 @@ $('#tComp').onclick=()=>{$('#tComp').classList.add('on');$('#tConv').classList.r
 const mb=$('#mb'),fbmb=$('#fbmb');
 $('#openHelp').onclick=()=>{mb.classList.add('on');renderHelp();$('#hs').focus();};$('#olink').onclick=e=>{e.preventDefault();$('#openHelp').click();};$('#xHelp').onclick=()=>mb.classList.remove('on');mb.onclick=e=>{if(e.target===mb)mb.classList.remove('on');};$('#hs').oninput=e=>renderHelp(e.target.value);
 $('#ea').onclick=()=>document.querySelectorAll('#helpList details').forEach(d=>d.open=true);$('#ca').onclick=()=>document.querySelectorAll('#helpList details').forEach(d=>d.open=false);
-$('#fbLink').onclick=e=>{e.preventDefault();fbmb.classList.add('on');$('#fbMsg').textContent='';$('#fbText').focus();};$('#xfb').onclick=()=>fbmb.classList.remove('on');fbmb.onclick=e=>{if(e.target===fbmb)fbmb.classList.remove('on');};
-$('#fbForm').addEventListener('submit',async e=>{
-  e.preventDefault();
-  const form=e.target,msg=$('#fbMsg'),btn=$('#fbSend'),orig=btn.textContent;
-  btn.textContent=lang==='de'?'SENDE...':'SENDING...';
-  btn.disabled=true;msg.textContent='';
-  try{
-    const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
-    if(res.ok){
-      msg.style.color='green';
-      msg.textContent=lang==='de'?'✓ Danke! Dein Feedback ist angekommen.':'✓ Thanks! Your feedback was sent.';
-      form.reset();setTimeout(()=>fbmb.classList.remove('on'),2000);
-    }else{
-      const data=await res.json();
-      msg.style.color='red';
-      msg.textContent = 'Fehler: ' + (data.errors ? data.errors[0].message : 'Unbekannt');
-    }
-  }catch(err){
-    msg.style.color='red';
-    msg.textContent=lang==='de'?'✗ Netzwerkfehler. Bitte erneut versuchen.':'✗ Network error. Please try again.';
-  }finally{
-    btn.textContent=orig;btn.disabled=false;
-  }
-});
+$('#fbLink').onclick=e=>{e.preventDefault();fbmb.classList.add('on');$('#fbText').focus();};$('#xfb').onclick=()=>fbmb.classList.remove('on');fbmb.onclick=e=>{if(e.target===fbmb)fbmb.classList.remove('on');};
+
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){mb.classList.remove('on');fbmb.classList.remove('on');}});$('#lang').onchange=e=>setLang(e.target.value);setLang(lang);
-</script></body></html>
+</script>
+</body>
+</html>
