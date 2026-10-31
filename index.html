@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fbf3eb">
+<title>MakeBead — Pixel Art Studio</title>
+<style>
+:root{--paper:#fbf3eb;--ink:#291914;--muted:#90796d;--line:#e3cdbb;--pink:#fa5878;--pink2:#ffe1e6;--white:#fffdf9;--shadow:#d1bdae;--grid:rgba(237,174,157,.18)}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Arial,Helvetica,sans-serif;background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:10px 10px}
+button,input,select{font:inherit}button{cursor:pointer}.topbar{height:58px;background:#fffaf4;border-bottom:1px solid var(--line)}
+.nav{width:min(1080px,calc(100% - 32px));height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font:900 16px monospace;letter-spacing:2px}.mark{display:grid;grid-template-columns:repeat(2,8px);gap:2px}.mark i{width:8px;height:8px;background:#fa6683}.mark i:nth-child(2){background:#ffd35e}.mark i:nth-child(3){background:#70d9cb}.mark i:nth-child(4){background:#8c9bfa}
+.navlinks{display:flex;gap:20px;font-size:10px;font-weight:900;letter-spacing:1.3px;color:#79675d}.navlinks a{text-decoration:none;color:inherit}
+main{width:min(1080px,calc(100% - 32px));margin:auto;padding:42px 0 70px}.hero{text-align:center;margin:0 auto 34px;max-width:740px}
+.eyebrow{font:800 10px monospace;letter-spacing:4px;color:var(--pink);margin-bottom:15px}
+h1{font:1000 clamp(25px,3.5vw,36px)/1.2 monospace;letter-spacing:1.5px;margin:0 0 13px}
+.hero p{font-size:14px;line-height:1.7;color:var(--muted);margin:0}
+.tabs{display:flex;justify-content:center;margin-top:20px}.tab{border:1px solid var(--pink);padding:9px 19px;background:transparent;color:var(--pink);font:900 10px monospace;letter-spacing:1.5px}.tab.active{background:var(--pink);color:#fff}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start}
+.preview-panel{border:2px dashed #dfd1c6;background:rgba(255,250,244,.48);min-height:590px;padding:22px;display:flex;align-items:center;justify-content:center;position:relative}
+.drop-message{text-align:center;cursor:pointer}.upload-icon{width:58px;height:58px;margin:0 auto 18px;border:1px solid var(--pink);background:#ffe1e5;box-shadow:3px 3px 0 #e8b3b7;color:var(--pink);display:grid;place-items:center;font-size:27px}
+.upload-title{font:900 12px monospace;letter-spacing:1.4px;margin-bottom:8px}.sub{font-size:12px;color:var(--muted)}.privacy{font-size:11px;color:#9a8278;margin-top:16px}
+#file{display:none}.canvas-area{display:none;width:100%;text-align:center}.canvas-scroll{width:100%;overflow:auto;max-height:540px;padding:5px}
+canvas{max-width:100%;height:auto;image-rendering:pixelated;background:#fff;border:1px solid var(--line)}
+.canvas-caption{font-size:11px;color:var(--muted);margin-top:10px}.actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:13px}
+.btn{border:1px solid var(--line);background:#fffaf4;padding:9px 12px;font:900 10px monospace;letter-spacing:1px;color:var(--ink)}.btn.primary{background:var(--pink);border-color:var(--pink);color:white}.btn:hover{filter:brightness(.97)}
+.settings{background:var(--white);border:1px solid #d7bda9;box-shadow:3px 4px 0 var(--shadow);padding:18px}
+.group{padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid #eee0d5}.group:last-child{border:0;padding:0;margin:0}
+.group-title{font:900 10px monospace;letter-spacing:1.5px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.value{font:12px monospace;color:#8b6e61;border:1px solid var(--line);padding:4px 7px;min-width:54px;text-align:center}
+.control{margin-bottom:14px}.control:last-child{margin-bottom:0}.control label{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#765f54;margin-bottom:7px}
+input[type=range]{width:100%;accent-color:var(--pink);cursor:pointer}
+.range-ends{display:flex;justify-content:space-between;color:#a28b7e;font-size:9px;margin-top:2px}
+select{width:100%;height:34px;border:1px solid #d4b49b;background:#fffefa;padding:0 9px;font:900 11px monospace;letter-spacing:.7px;color:var(--ink)}
+.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.preset{border:1px solid var(--line);background:#fffaf4;padding:8px 5px;font:900 9px monospace;letter-spacing:.7px;color:#795f54}.preset.active{background:var(--pink2);border-color:var(--pink);color:#c93658}
+.checkrow{display:flex;align-items:center;gap:8px;font-size:11px;color:#765f54}.checkrow input{accent-color:var(--pink)}
+.status{font-size:11px;color:var(--muted);line-height:1.6;margin-top:12px}
+.compare{display:none;margin-top:20px;background:var(--white);border:1px solid var(--line);padding:16px;box-shadow:3px 4px 0 var(--shadow)}
+.compare h2{font:900 12px monospace;letter-spacing:1.4px;margin:0 0 12px}.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.compare figure{margin:0}.compare figure canvas{width:100%}.compare figcaption{font:900 9px monospace;letter-spacing:1px;margin-top:7px}
+.tips{margin-top:28px;color:var(--muted);font-size:12px;line-height:1.7}.tips strong{color:var(--ink)}
+@media(max-width:760px){.nav{width:calc(100% - 24px)}.navlinks{gap:10px}.navlinks a:nth-child(n+3){display:none}main{width:calc(100% - 24px);padding-top:30px}.layout{grid-template-columns:1fr}.settings{grid-row:1}.preview-panel{min-height:390px}.canvas-scroll{max-height:430px}}
+</style>
+</head>
+<body>
+<header class="topbar"><nav class="nav"><a class="brand" href="#"><span class="mark"><i></i><i></i><i></i><i></i></span> MAKEBEAD</a><div class="navlinks"><a href="#">GALLERY</a><a href="#">CONVERTERS⌄</a><a href="#">DESIGNERS⌄</a><a href="#">GUIDES</a><a href="#">FEEDBACK</a></div></nav></header>
+<main>
+ <section class="hero">
+  <div class="eyebrow">~ PIXEL ART STUDIO ~</div>
+  <h1>IMAGE TO PIXEL ART CONVERTER</h1>
+  <p>Turn any photo into pixel art. Control pixel size, sharpness, blur, contrast and colors — preview the result live and export your finished pixel artwork as a PNG. Your image stays on your device.</p>
+  <div class="tabs"><button class="tab active" id="tabPixel">PIXEL CONVERTER</button><button class="tab" id="tabCompare">BEFORE / AFTER</button></div>
+ </section>
+ <section class="layout">
+  <div>
+   <div class="preview-panel" id="dropArea">
+    <div class="drop-message" id="dropMessage">
+     <div class="upload-icon">▧</div><div class="upload-title">DROP IMAGE OR CLICK TO UPLOAD</div><div class="sub">JPEG, PNG, or WebP</div><div class="privacy">♙ &nbsp;Processed in your browser — never uploaded</div>
+    </div>
+    <div class="canvas-area" id="canvasArea"><div class="canvas-scroll"><canvas id="output"></canvas></div><div class="canvas-caption" id="caption">Your pixel art preview</div><div class="actions"><button class="btn" id="replace">CHANGE IMAGE</button><button class="btn" id="restoreOriginal">RESTORE ORIGINAL</button><button class="btn" id="downloadOriginal">DOWNLOAD ORIGINAL PNG ↓</button><button class="btn" id="reset">RESET SETTINGS</button><button class="btn primary" id="download">DOWNLOAD PIXEL ART PNG ↓</button></div></div>
+   </div>
+   <input id="file" type="file" accept="image/png,image/jpeg,image/webp">
+   <section class="compare" id="compare"><h2>BEFORE / AFTER PREVIEW</h2><div class="compare-grid"><figure><canvas id="before"></canvas><figcaption>ORIGINAL</figcaption></figure><figure><canvas id="after"></canvas><figcaption>PIXEL ART</figcaption></figure></div></section>
+   <p class="tips"><strong>Quick tip:</strong> A lower pixel count creates larger, chunkier pixels. Increase sharpness to bring back edge definition; add a little blur for a softer, retro-game look. For classic pixel art, try 48–96 pixels wide with nearest-neighbor scaling.</p>
+  </div>
+  <aside class="settings">
+   <div class="group"><div class="group-title">PIXEL STYLE <span class="value" id="pixelValue">64 px</span></div>
+    <div class="control"><label for="pixelSize">PIXEL SIZE <b id="pixelLabel">64 px wide</b></label><input id="pixelSize" type="range" min="8" max="256" step="4" value="64"><div class="range-ends"><span>8 · detailed</span><span>256 · chunky</span></div></div>
+    <div class="control"><label for="scaleMode">OUTPUT SCALING</label><select id="scaleMode"><option value="nearest">PIXELATED / SHARP EDGES</option><option value="smooth">SMOOTH / SOFT EDGES</option></select></div>
+    <div class="preset-grid"><button class="preset" data-preset="fine">FINE PIXELS</button><button class="preset active" data-preset="classic">CLASSIC 8-BIT</button><button class="preset" data-preset="chunky">CHUNKY 16-BIT</button><button class="preset" data-preset="tiny">TINY SPRITE</button></div>
+   </div>
+   <div class="group"><div class="group-title">IMAGE CLARITY</div>
+    <div class="control"><label for="sharpness">SHARPNESS <b id="sharpLabel">0</b></label><input id="sharpness" type="range" min="0" max="100" value="0"><div class="range-ends"><span>soft</span><span>very sharp</span></div></div>
+    <div class="control"><label for="blur">BLUR / SOFTNESS <b id="blurLabel">0 px</b></label><input id="blur" type="range" min="0" max="8" step=".5" value="0"><div class="range-ends"><span>crisp</span><span>soft focus</span></div></div>
+   </div>
+   <div class="group"><div class="group-title">COLOR & DETAIL</div>
+    <div class="control"><label for="colors">COLOR LIMIT <b id="colorsLabel">32</b></label><input id="colors" type="range" min="4" max="64" step="1" value="32"><div class="range-ends"><span>4 colors</span><span>64 colors</span></div></div>
+    <div class="control"><label for="contrast">CONTRAST <b id="contrastLabel">100%</b></label><input id="contrast" type="range" min="50" max="180" value="100"></div>
+    <div class="control"><label for="saturation">SATURATION <b id="saturationLabel">100%</b></label><input id="saturation" type="range" min="0" max="200" value="100"></div>
+    <label class="checkrow"><input type="checkbox" id="outline"> Add dark pixel outline</label>
+   </div>
+   <div class="group"><div class="group-title">EXPORT SIZE</div>
+    <div class="control"><label for="exportScale">PIXEL SCALE <b id="exportLabel">8×</b></label><input id="exportScale" type="range" min="1" max="20" value="8"><div class="range-ends"><span>1×</span><span>20×</span></div></div>
+    <label class="checkrow"><input type="checkbox" id="grid"> Show pixel grid in preview</label>
+   </div>
+   <div class="status" id="status">Upload an image to begin. All adjustments update your preview automatically.</div>
+  </aside>
+ </section>
+</main>
+<script>
+(()=>{
+ 'use strict';
+ const $=id=>document.getElementById(id);
+ const file=$('file'),drop=$('dropArea'),message=$('dropMessage'),canvasArea=$('canvasArea'),out=$('output'),ctx=out.getContext('2d');
+ let image=null,originalName='pixel-art',timer=null,lastSmall=null,showingOriginal=false;
+ const controls=['pixelSize','sharpness','blur','colors','contrast','saturation','exportScale'];
+ const presets={fine:{pixelSize:128,sharpness:25,blur:0,colors:48},classic:{pixelSize:64,sharpness:10,blur:0,colors:32},chunky:{pixelSize:32,sharpness:15,blur:0,colors:24},tiny:{pixelSize:24,sharpness:0,blur:0,colors:16}};
+ function pick(){file.click()}
+ drop.addEventListener('click',e=>{if(!e.target.closest('button'))pick()});
+ message.addEventListener('click',pick);
+ $('replace').addEventListener('click',pick);
+ file.addEventListener('change',e=>{if(e.target.files[0])load(e.target.files[0]);file.value=''});
+ ['dragenter','dragover'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.style.borderColor='var(--pink)'}));
+ ['dragleave','drop'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.style.borderColor=''}));
+ drop.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)load(f)});
+ function load(f){
+  if(!/^image\/(png|jpeg|webp)$/.test(f.type)){alert('Please select a JPEG, PNG or WebP image.');return}
+  const url=URL.createObjectURL(f),img=new Image();
+  img.onload=()=>{image=img;showingOriginal=false;originalName=(f.name.replace(/\.[^.]+$/,'')||'pixel-art').replace(/[^\w-]+/g,'-');URL.revokeObjectURL(url);message.style.display='none';canvasArea.style.display='block';render()};
+  img.onerror=()=>{URL.revokeObjectURL(url);alert('Could not open this image.')};img.src=url;
+ }
+ function readSettings(){
+  return {pixel:Number($('pixelSize').value),sharp:Number($('sharpness').value),blur:Number($('blur').value),colors:Number($('colors').value),contrast:Number($('contrast').value),sat:Number($('saturation').value),scale:Number($('exportScale').value),smooth:$('scaleMode').value==='smooth',outline:$('outline').checked,grid:$('grid').checked};
+ }
+ function updateLabels(){
+  $('pixelValue').textContent=$('pixelSize').value+' px';$('pixelLabel').textContent=$('pixelSize').value+' px wide';
+  $('sharpLabel').textContent=$('sharpness').value;$('blurLabel').textContent=$('blur').value+' px';$('colorsLabel').textContent=$('colors').value;
+  $('contrastLabel').textContent=$('contrast').value+'%';$('saturationLabel').textContent=$('saturation').value+'%';$('exportLabel').textContent=$('exportScale').value+'×';
+ }
+ function schedule(){updateLabels();if(!image)return;showingOriginal=false;clearTimeout(timer);timer=setTimeout(render,35)}
+ controls.forEach(id=>$(id).addEventListener('input',schedule));
+ ['scaleMode','outline','grid'].forEach(id=>$(id).addEventListener('change',schedule));
+ function makeSmall(s){
+  const ratio=image.width/image.height,sw=Math.max(1,Math.min(s.pixel,Math.round(s.pixel*ratio))),sh=Math.max(1,Math.round(sw/ratio));
+  const c=document.createElement('canvas');c.width=sw;c.height=sh;const cctx=c.getContext('2d',{willReadFrequently:true});
+  // Blur is applied before downsampling; sharpness is applied to the small pixel canvas.
+  cctx.filter=s.blur?`blur(${s.blur}px)`:'none';cctx.drawImage(image,0,0,sw,sh);cctx.filter='none';
+  let im=cctx.getImageData(0,0,sw,sh),d=im.data;
+  const contrast=s.contrast/100,sat=s.sat/100;
+  for(let i=0;i<d.length;i+=4){
+   let r=d[i],g=d[i+1],b=d[i+2],gray=.299*r+.587*g+.114*b;
+   r=gray+(r-gray)*sat;g=gray+(g-gray)*sat;b=gray+(b-gray)*sat;
+   d[i]=clamp((r-128)*contrast+128);d[i+1]=clamp((g-128)*contrast+128);d[i+2]=clamp((b-128)*contrast+128);
+  }
+  cctx.putImageData(im,0,0);
+  if(s.sharp>0)sharpen(cctx,sw,sh,s.sharp/100);
+  if(s.colors<64)reduceColors(cctx,sw,sh,s.colors);
+  if(s.outline)addOutline(cctx,sw,sh);
+  return c;
+ }
+ const clamp=v=>Math.max(0,Math.min(255,v));
+ function sharpen(cctx,w,h,amount){
+  const src=cctx.getImageData(0,0,w,h),d=src.data,outData=cctx.createImageData(w,h),o=outData.data;
+  // 3x3 unsharp kernel; border pixels remain unchanged.
+  const k=[0,-1,0,-1,5,-1,0,-1,0];
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+   const p=(y*w+x)*4;
+   for(let ch=0;ch<3;ch++){
+    let sum=0,ki=0;
+    for(let yy=-1;yy<=1;yy++)for(let xx=-1;xx<=1;xx++,ki++){
+     const nx=Math.max(0,Math.min(w-1,x+xx)),ny=Math.max(0,Math.min(h-1,y+yy));
+     sum+=d[(ny*w+nx)*4+ch]*k[ki];
+    }
+    o[p+ch]=clamp(d[p+ch]+(sum-d[p+ch])*amount);
+   }
+   o[p+3]=d[p+3];
+  }
+  cctx.putImageData(outData,0,0);
+ }
+ function reduceColors(cctx,w,h,count){
+  const im=cctx.getImageData(0,0,w,h),d=im.data;
+  // Uniform RGB quantization: fast, deterministic and suitable for sprite-style output.
+  const levels=Math.max(2,Math.round(Math.cbrt(count)));
+  const step=255/(levels-1);
+  for(let i=0;i<d.length;i+=4)for(let ch=0;ch<3;ch++)d[i+ch]=Math.round(d[i+ch]/step)*step;
+  cctx.putImageData(im,0,0);
+ }
+ function addOutline(cctx,w,h){
+  const im=cctx.getImageData(0,0,w,h),d=im.data,copy=new Uint8ClampedArray(d);
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+   const p=(y*w+x)*4,lum=.299*d[p]+.587*d[p+1]+.114*d[p+2];
+   if(lum<75)continue;
+   let edge=false;
+   for(let yy=-1;yy<=1;yy++)for(let xx=-1;xx<=1;xx++){
+    const nx=x+xx,ny=y+yy;if(nx<0||ny<0||nx>=w||ny>=h)continue;
+    const q=(ny*w+nx)*4,l=.299*d[q]+.587*d[q+1]+.114*d[q+2];
+    if(l<45)edge=true;
+   }
+   if(edge){copy[p]=35;copy[p+1]=28;copy[p+2]=42}
+  }
+  im.data.set(copy);cctx.putImageData(im,0,0);
+ }
+ function render(){
+  if(!image)return;
+  if(showingOriginal){
+   out.width=image.naturalWidth||image.width;out.height=image.naturalHeight||image.height;
+   ctx.imageSmoothingEnabled=true;ctx.clearRect(0,0,out.width,out.height);
+   ctx.drawImage(image,0,0,out.width,out.height);
+   $('caption').textContent=`Original image · ${out.width} × ${out.height} px`;
+   $('status').textContent='Original image preview · no pixel effects applied';
+   return;
+  }
+  const s=readSettings(),small=makeSmall(s);lastSmall=small;
+  const factor=s.scale,w=small.width*factor,h=small.height*factor;
+  out.width=w;out.height=h;ctx.clearRect(0,0,w,h);
+  ctx.imageSmoothingEnabled=s.smooth;
+  ctx.drawImage(small,0,0,w,h);
+  if(s.grid&&factor>=3){
+   ctx.save();ctx.strokeStyle='rgba(30,20,20,.23)';ctx.lineWidth=1;
+   for(let x=0;x<=small.width;x++){let px=x*factor+.5;ctx.beginPath();ctx.moveTo(px,0);ctx.lineTo(px,h);ctx.stroke()}
+   for(let y=0;y<=small.height;y++){let py=y*factor+.5;ctx.beginPath();ctx.moveTo(0,py);ctx.lineTo(w,py);ctx.stroke()}
+   ctx.restore();
+  }
+  $('caption').textContent=`${small.width} × ${small.height} pixels · ${w} × ${h} px export`;
+  $('status').textContent=`Ready · ${small.width} × ${small.height} pixel grid · ${s.colors} color setting · ${s.scale}× export`;
+  if($('compare').style.display==='block')drawComparison(small);
+ }
+ function drawComparison(small){
+  const b=$('before'),a=$('after'),max=220;
+  const ratio=image.width/image.height,bw=Math.min(max,Math.round(max*Math.min(1,ratio))),bh=Math.min(max,Math.round(max/Math.max(1,ratio)));
+  b.width=bw;b.height=bh;const bc=b.getContext('2d');bc.imageSmoothingEnabled=true;bc.drawImage(image,0,0,bw,bh);
+  a.width=bw;a.height=bh;const ac=a.getContext('2d');ac.imageSmoothingEnabled=false;ac.drawImage(small,0,0,bw,bh);
+ }
+ $('restoreOriginal').addEventListener('click',()=>{
+  if(!image)return;
+  showingOriginal=true;render();
+  $('tabPixel').classList.add('active');$('tabCompare').classList.remove('active');$('compare').style.display='none';
+ });
+ $('downloadOriginal').addEventListener('click',()=>{
+  if(!image)return;
+  const c=document.createElement('canvas');c.width=image.naturalWidth||image.width;c.height=image.naturalHeight||image.height;
+  c.getContext('2d').drawImage(image,0,0,c.width,c.height);
+  const link=document.createElement('a');link.download=originalName+'-original.png';link.href=c.toDataURL('image/png');link.click();
+ });
+ $('download').addEventListener('click',()=>{
+  if(!image||!lastSmall)return;
+  // Export the pixel grid at selected scale without preview grid unless requested.
+  const s=readSettings(),factor=s.scale,c=document.createElement('canvas');c.width=lastSmall.width*factor;c.height=lastSmall.height*factor;
+  const cctx=c.getContext('2d');cctx.imageSmoothingEnabled=s.smooth;cctx.drawImage(lastSmall,0,0,c.width,c.height);
+  if(s.grid&&factor>=3){cctx.strokeStyle='rgba(30,20,20,.23)';cctx.lineWidth=1;for(let x=0;x<=lastSmall.width;x++){let p=x*factor+.5;cctx.beginPath();cctx.moveTo(p,0);cctx.lineTo(p,c.height);cctx.stroke()}for(let y=0;y<=lastSmall.height;y++){let p=y*factor+.5;cctx.beginPath();cctx.moveTo(0,p);cctx.lineTo(c.width,p);cctx.stroke()}}
+  const link=document.createElement('a');link.download=originalName+'-pixel-art.png';link.href=c.toDataURL('image/png');link.click();
+ });
+ $('reset').addEventListener('click',()=>{
+  Object.entries({pixelSize:64,sharpness:0,blur:0,colors:32,contrast:100,saturation:100,exportScale:8}).forEach(([id,v])=>$(id).value=v);
+  $('scaleMode').value='nearest';$('outline').checked=false;$('grid').checked=false;
+  document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('active',b.dataset.preset==='classic'));schedule();
+ });
+ document.querySelectorAll('.preset').forEach(btn=>btn.addEventListener('click',()=>{
+  const p=presets[btn.dataset.preset];Object.entries(p).forEach(([id,v])=>$(id).value=v);
+  document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('active',b===btn));schedule();
+ }));
+ $('tabPixel').addEventListener('click',()=>{$('tabPixel').classList.add('active');$('tabCompare').classList.remove('active');$('compare').style.display='none'});
+ $('tabCompare').addEventListener('click',()=>{
+  if(!image){alert('Upload an image first.');return}
+  $('tabCompare').classList.add('active');$('tabPixel').classList.remove('active');$('compare').style.display='block';drawComparison(lastSmall);
+ });
+ updateLabels();
+})();
+</script>
+</body>
+</html>
